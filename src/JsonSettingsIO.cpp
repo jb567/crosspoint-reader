@@ -119,6 +119,7 @@ bool JsonSettingsIO::saveSettings(const CrossPointSettings& s, const char* path)
   doc["opdsServerUrl"] = s.opdsServerUrl;
   doc["opdsUsername"] = s.opdsUsername;
   doc["opdsPassword_obf"] = obfuscation::obfuscateToBase64(s.opdsPassword);
+  doc["opdsFileFolder"] = s.opdsFileFolder;
   doc["hideBatteryPercentage"] = s.hideBatteryPercentage;
   doc["longPressChapterSkip"] = s.longPressChapterSkip;
   doc["hyphenationEnabled"] = s.hyphenationEnabled;
@@ -203,6 +204,9 @@ bool JsonSettingsIO::loadSettings(CrossPointSettings& s, const char* json, bool*
   }
   strncpy(s.opdsPassword, pass.c_str(), sizeof(s.opdsPassword) - 1);
   s.opdsPassword[sizeof(s.opdsPassword) - 1] = '\0';
+
+  s.opdsFileFolder = doc["opdsFileFolder"] | (uint8_t)0;
+
   LOG_DBG("CPS", "Settings loaded from file");
 
   if (doc.containsKey("statusBarChapterPageCount")) {
