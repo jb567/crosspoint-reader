@@ -31,7 +31,7 @@ void CalibreSettingsActivity::onExit() { Activity::onExit(); }
 
 void CalibreSettingsActivity::loop() {
   if (mappedInput.wasPressed(MappedInputManager::Button::Back)) {
-    activityManager.popActivity();
+    finish();
     return;
   }
 
