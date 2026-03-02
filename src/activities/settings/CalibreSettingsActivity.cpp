@@ -99,12 +99,10 @@ void CalibreSettingsActivity::handleSelection() {
 
 std::vector<StrId> CalibreSettingsActivity::getFileFolderSetting() {
   if (fileFolderSettingEnums.size() == 0) {
-    for (auto& setting : getSettingsList()) {
-      if (setting.key == "opdsFileFolder") {
-        fileFolderSettingEnums = setting.enumValues;
-        break;
-      }
-    }
+    fileFolderSettingEnums =
+        (*std::find_if(getSettingsList().begin(), getSettingsList().end(), [](const SettingInfo& s) {
+          return strcmp(s.key, "opdsFileFolder") == 0;
+        })).enumValues;
   }
   return fileFolderSettingEnums;
 }
